@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200983605436228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 11.37}
+  m_LocalPosition: {x: 0, y: 0, z: -7.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4669388678351748}
@@ -138,7 +138,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869368896047404}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -188,6 +188,11 @@ MonoBehaviour:
   moveSpeed: 1
   moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
     type: 2}
+  layerPlayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  damageRadius: 1
+  damage: 1
 --- !u!114 &114954168244442634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,5 +204,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597352af313087f4797c589f9b60c9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkTime: 0.2
-  blinkColor: {r: 1, g: 0, b: 0, a: 1}

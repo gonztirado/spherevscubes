@@ -2,27 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     private static float STEP_ANGLE = 45f;
 
+    [Header("Move")] 
     public float stepTime;
     public float moveSpeed;
     public Transform moveDirection;
+
+    [Header("Player Damage")] 
+    public LayerMask layerPlayer;
+    public float damageRadius;
+    public int damage;
 
     private float _rotationDirection = 1f;
     private float _rotatingAngles = 0f;
     private bool isFirstStep = true;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     private void FixedUpdate()
     {
         Move();
+        CheckPlayerCollision();
+    }
+
+    private void CheckPlayerCollision()
+    {
+        Collider[] playerCollisions = Physics.OverlapSphere(transform.position, damageRadius, layerPlayer);
+        if(playerCollisions.Length > 0)
+        {
+            playerCollisions[0].GetComponentInParent<Health>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+    }
+
+    public void Move()
+    {
+        MoveToMoveDirection();
         RotateCube();
         CheckRotationDirection();
     }
@@ -33,11 +49,14 @@ public class EnemyMovement : MonoBehaviour
         transform.LookAt(moveDirection.position);
     }
 
-    private void Move()
+    private void MoveToMoveDirection()
     {
-        Vector3 direction = moveDirection.position - transform.position;
-        direction.Normalize();
-        transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
+        if (moveDirection != null)
+        {
+            Vector3 direction = moveDirection.position - transform.position;
+            direction.Normalize();
+            transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
+        }
     }
 
 
@@ -57,5 +76,10 @@ public class EnemyMovement : MonoBehaviour
             _rotationDirection *= -1;
             isFirstStep = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, damageRadius); 
     }
 }
