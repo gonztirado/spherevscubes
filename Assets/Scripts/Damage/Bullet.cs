@@ -20,17 +20,10 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("entra1");
         if (layermask == (layermask | (1 << collision.gameObject.layer)))
         {
-            Debug.Log("entra2");
-            
             if (collision.GetComponentInParent<Health>() != null)
-            {
-                Debug.Log("entra3");
                 collision.GetComponentInParent<Health>().TakeDamage(damage);
-            }
-
             Destroy(gameObject);
         }
     }
