@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
     private static float STEP_ANGLE = 45f;
 
     public float stepTime;
+    public float moveSpeed;
+    public Transform moveDirection;
 
     private float _rotationDirection = 1f;
     private float _rotatingAngles = 0f;
@@ -20,8 +22,22 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
+        Move();
         RotateCube();
         CheckRotationDirection();
+    }
+
+    public void SetMoveDirection(Transform moveDirection)
+    {
+        this.moveDirection = moveDirection;
+        transform.LookAt(moveDirection.position);
+    }
+
+    private void Move()
+    {
+        Vector3 direction = moveDirection.position - transform.position;
+        direction.Normalize();
+        transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
     }
 
 
