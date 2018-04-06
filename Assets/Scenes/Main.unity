@@ -921,10 +921,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eed0e76ca033704e98c2df1ece66d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorMask:
+  mouseHitMask:
     serializedVersion: 2
     m_Bits: 256
-  camRayLength: 1000
+  mouseRayLength: 1000
 --- !u!4 &1595337934
 Transform:
   m_ObjectHideFlags: 0
