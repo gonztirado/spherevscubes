@@ -38,3 +38,6 @@ sysinfo.txt
 .idea/
 Assets/Plugins/Editor/JetBrains.meta
 Assets/Plugins/Editor/JetBrains/
+
+# Output Export
+Output/
