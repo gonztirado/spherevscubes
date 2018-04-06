@@ -21,22 +21,23 @@ public class EnemySpawnController : MonoBehaviour
     {
         Enemy newEnemy = Instantiate(simpleEnemy, RandomPositionInArea(), Quaternion.identity);
         newEnemy.SetMoveDirection(playerPosition);
+        newEnemy.transform.SetParent(transform);
     }
 
     private Vector3 RandomPositionInArea()
     {
-        return new Vector3(RandomFloatInArea(), 0, RandomFloatInArea());
+        switch (Random.Range(0, 4))
+        {
+            case 0:
+                return new Vector3(Random.Range(-maxDistance, minDistance), 0, Random.Range(minDistance, maxDistance));
+            case 1:
+                return new Vector3(Random.Range(minDistance, maxDistance), 0, Random.Range(-minDistance, maxDistance));
+            case 2:
+                return new Vector3(Random.Range(-minDistance, maxDistance), 0, Random.Range(-maxDistance, -minDistance));
+            default:
+                return new Vector3(Random.Range(-maxDistance, -minDistance), 0, Random.Range(-maxDistance, minDistance));
+        }
     }
-
-    private float RandomFloatInArea()
-    {
-        float randomFloatInArea = Random.Range(minDistance, maxDistance);
-        float randomSign = Random.Range(-1f, 1f);
-        if (randomSign < 0)
-            randomFloatInArea *= -1;
-        return randomFloatInArea;
-    }
-
 
     // For debug purposes
 
