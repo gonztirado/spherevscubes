@@ -652,6 +652,11 @@ Transform:
   m_Father: {fileID: 618643186}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1163865699 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1208071609}
 --- !u!1 &1198837815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,6 +1349,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1860470687}
+  - component: {fileID: 1860470688}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -1358,13 +1364,30 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1860470686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1765864865}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1860470688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1860470686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1319dc0ee86cd5d4882c144580c71b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnInterval: 1
+  minDistance: 20
+  maxDistance: 40
+  playerPosition: {fileID: 1163865699}
+  simpleEnemy: {fileID: 114525900341234686, guid: 13ab5317843c7f6458a3e9ceafc8810e,
+    type: 2}
 --- !u!1 &1933685615
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     private static float STEP_ANGLE = 45f;
 
     public float stepTime;
     public float moveSpeed;
-    public Transform moveDirection;
 
+    private Transform moveDirection;
     private float _rotationDirection = 1f;
     private float _rotatingAngles = 0f;
     private bool isFirstStep = true;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     private void FixedUpdate()
     {
         Move();
+    }
+
+    public void Move()
+    {
+        MoveToMoveDirection();
         RotateCube();
         CheckRotationDirection();
     }
@@ -33,11 +32,14 @@ public class EnemyMovement : MonoBehaviour
         transform.LookAt(moveDirection.position);
     }
 
-    private void Move()
+    private void MoveToMoveDirection()
     {
-        Vector3 direction = moveDirection.position - transform.position;
-        direction.Normalize();
-        transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
+        if (moveDirection != null)
+        {
+            Vector3 direction = moveDirection.position - transform.position;
+            direction.Normalize();
+            transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
+        }
     }
 
 
