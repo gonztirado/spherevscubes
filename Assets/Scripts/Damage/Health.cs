@@ -32,7 +32,7 @@ public class Health : MonoBehaviour
         }
         if (GetComponent<HealthColorModifier>() != null)
         {
-            GetComponent<HealthColorModifier>().Blink();
+            GetComponent<HealthColorModifier>().ChangeColorTransparency(GetPercentageHealth());
         }
     }
 

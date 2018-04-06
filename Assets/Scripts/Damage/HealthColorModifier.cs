@@ -6,26 +6,27 @@ using System.Linq;
 
 public class HealthColorModifier : MonoBehaviour
 {
-    public float blinkTime = 0.1f;
-    public Color blinkColor = Color.red;
-    private bool shining;
+    private float InitTransparency = 0;
 
-    private Color _originalColor;
 
-    public void Blink()
+    void Update()
     {
-        if (!shining)
-        {
-            _originalColor = GetComponentInChildren<Renderer>().material.GetColor("_Color");
-            GetComponentInChildren<Renderer>().material.SetColor("_Color", blinkColor);
-            shining = true;
-            Invoke("RemoveBlink", blinkTime);
-        }
+        InitColorTransparency();
     }
 
-    public void RemoveBlink()
+    public void ChangeColorTransparency(float transparency)
     {
-        GetComponentInChildren<Renderer>().material.SetColor("_Color", _originalColor);
-        shining = false;
+        Color currentColor = GetComponentInChildren<Renderer>().material.GetColor("_Color");
+        GetComponentInChildren<Renderer>().material.SetColor("_Color",
+            new Color(currentColor.r, currentColor.g, currentColor.b, transparency));
+    }
+
+    private void InitColorTransparency()
+    {
+        if (InitTransparency < 1)
+        {
+            InitTransparency += Time.deltaTime;
+            ChangeColorTransparency(InitTransparency);
+        }
     }
 }
