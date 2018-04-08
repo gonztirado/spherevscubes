@@ -7,6 +7,7 @@ public class GunController : MonoBehaviour
     public float fireSpeed;
     public GameObject bulletPrefab;
     public Transform bulletStart;
+    public GameObject bullets;
     
     [Header("Control")]
     public string fireAxis;
@@ -24,7 +25,8 @@ public class GunController : MonoBehaviour
         float fireAxisPressed = Input.GetAxisRaw(fireAxis);
         if (CanShoot() && fireAxisPressed != 0)
         {
-            Instantiate(bulletPrefab, bulletStart.position, bulletStart.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, bulletStart.position, bulletStart.rotation);
+            bullet.transform.SetParent(bullets.transform);
             _canShoot = false;
             _shootTimer += 1 / fireSpeed;
         }
@@ -32,7 +34,7 @@ public class GunController : MonoBehaviour
 
     private bool CanShoot()
     {
-        if (!_canShoot)
+        if (!_canShoot && Time.timeScale > 0)
         {
             _shootTimer -= Time.deltaTime;
             if (_shootTimer <= 0)

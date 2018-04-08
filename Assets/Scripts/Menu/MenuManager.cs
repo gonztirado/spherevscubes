@@ -31,6 +31,7 @@ public class MenuManager : MonoBehaviour
     {
         ShowMenu(true);
         AddButtonsListeners();
+        continueButton.gameObject.SetActive(false);
     }
 
 
@@ -43,8 +44,23 @@ public class MenuManager : MonoBehaviour
     {
         if (continueButton != null)
             continueButton.onClick.AddListener(delegate { ShowMenu(false); });
+        if (startGameButton != null)
+            startGameButton.onClick.AddListener(StartOrResetGame);
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitGame);
+    }
+
+    private void StartOrResetGame()
+    {
+        bool wasGameStarted = GameController.instance.IsGameStarted;
+        GameController.instance.ResetGame();
+        ShowMenu(false);
+
+        if (!wasGameStarted)
+        {
+            startGameButton.GetComponentInChildren<Text>().text = "RESTART GAME";
+            continueButton.gameObject.SetActive(true);
+        }
     }
 
     private void CheckToogleShowMenu()
