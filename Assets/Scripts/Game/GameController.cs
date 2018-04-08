@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
         if (_isGameStarted && Time.timeScale > 0)
         {
             _levelTimeRemaining -= Time.deltaTime;
-            UpdateTimeBar();
+            UpdateTimeBarInHud();
         }
     }
 
@@ -59,6 +59,12 @@ public class GameController : MonoBehaviour
     public bool IsGameStarted
     {
         get { return _isGameStarted; }
+    }
+
+    public void IncrementEnemyKills()
+    {
+        _killsCounter++;
+        UpdateKillsInHud();
     }
 
     public void ResetGame()
@@ -72,11 +78,15 @@ public class GameController : MonoBehaviour
     private void ResetHubElements()
     {
         player.GetComponent<Health>().RecoverAllHealth();
+        
         _killsCounter = 0;
-        killsCounterText.text = _killsCounter.ToString();
+        UpdateKillsInHud();
+        
         _levelTimeRemaining = levelTimeInSeconds;
-        UpdateTimeBar();
+        UpdateTimeBarInHud();
     }
+
+    
 
     private void ResetPlayerProperties()
     {
@@ -90,8 +100,13 @@ public class GameController : MonoBehaviour
         GeneralUtils.DestroyAllChildren(bullets.transform);
     }
 
-    private void UpdateTimeBar()
+    private void UpdateTimeBarInHud()
     {
         timeBar.fillAmount = _levelTimeRemaining / levelTimeInSeconds;
+    }
+    
+    private void UpdateKillsInHud()
+    {
+        killsCounterText.text = _killsCounter.ToString();
     }
 }
