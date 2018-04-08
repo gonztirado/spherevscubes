@@ -1696,7 +1696,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CONTINUE GAME
+  m_Text: CONTINUE
 --- !u!222 &1128753630
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3147,11 +3147,12 @@ MonoBehaviour:
   ammoPanel: {fileID: 1858271769}
   timeBar: {fileID: 196689219}
   levelName: {fileID: 1237348587}
-  killsCounter: {fileID: 1644431345}
+  killsCounterText: {fileID: 1644431345}
   player: {fileID: 849861172}
   enemies: {fileID: 1860470686}
   bullets: {fileID: 551518312}
   cameras: {fileID: 618643184}
+  levelTimeInSeconds: 10
 --- !u!1 &1803624601
 GameObject:
   m_ObjectHideFlags: 0
