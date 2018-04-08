@@ -22,6 +22,7 @@ public class EnemySpawnController : MonoBehaviour
         Enemy newEnemy = Instantiate(simpleEnemy, RandomPositionInArea(), Quaternion.identity);
         newEnemy.SetMoveDirection(playerPosition);
         newEnemy.transform.SetParent(transform);
+        newEnemy.GetComponent<Health>().onDie.AddListener(delegate { GameController.instance.IncrementEnemyKills(); });
     }
 
     private Vector3 RandomPositionInArea()
