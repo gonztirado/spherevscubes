@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
-    public Slider uIBar;
+    public Image uIBar;
     public UnityEvent onDie;
 
     void Start()
@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
     {
         if (uIBar != null)
         {
-            uIBar.value = GetPercentageHealth();
+            uIBar.fillAmount = GetPercentageHealth();
         }
     }
 }

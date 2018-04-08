@@ -6,13 +6,11 @@ public class Enemy : MonoBehaviour
 {
     private static float STEP_ANGLE = 45f;
 
-    [Header("Move")] 
-    public float stepTime;
+    [Header("Move")] public float stepTime;
     public float moveSpeed;
     public Transform moveDirection;
 
-    [Header("Player Damage")] 
-    public LayerMask layerPlayer;
+    [Header("Player Damage")] public LayerMask layerPlayer;
     public float damageRadius;
     public int damage;
 
@@ -29,7 +27,7 @@ public class Enemy : MonoBehaviour
     private void CheckPlayerCollision()
     {
         Collider[] playerCollisions = Physics.OverlapSphere(transform.position, damageRadius, layerPlayer);
-        if(playerCollisions.Length > 0)
+        if (playerCollisions.Length > 0)
         {
             playerCollisions[0].GetComponentInParent<Health>().TakeDamage(damage);
             Destroy(gameObject);
@@ -45,8 +43,11 @@ public class Enemy : MonoBehaviour
 
     public void SetMoveDirection(Transform moveDirection)
     {
-        this.moveDirection = moveDirection;
-        transform.LookAt(moveDirection.position);
+        if (moveDirection != null)
+        {
+            this.moveDirection = moveDirection;
+            transform.LookAt(moveDirection.position);
+        }
     }
 
     private void MoveToMoveDirection()
@@ -80,6 +81,6 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, damageRadius); 
+        Gizmos.DrawWireSphere(transform.position, damageRadius);
     }
 }

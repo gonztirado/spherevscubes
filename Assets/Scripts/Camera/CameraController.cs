@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     private void CheckCameraRotation()
     {
         float horizontalMove = Input.GetAxisRaw(horizontalAxis);
-        if (horizontalMove != 0)
+        if (horizontalMove != 0 && Time.timeScale > 0f)
         {
             transform.Rotate(Vector3.up * horizontalMove * moveSpeed * Time.deltaTime);
         }
@@ -30,9 +30,9 @@ public class CameraController : MonoBehaviour
     {
         float verticalMove = Input.GetAxisRaw(verticalAxis);
 
-        if (verticalMove > 0 && _isInThirdPersonView)
+        if (verticalMove > 0 && _isInThirdPersonView && Time.timeScale > 0f)
             ShowFirstPersonView();
-        else if (verticalMove < 0 && !_isInThirdPersonView)
+        else if (verticalMove < 0 && !_isInThirdPersonView && Time.timeScale > 0f)
             ShowThirdPersonView();
     }
 

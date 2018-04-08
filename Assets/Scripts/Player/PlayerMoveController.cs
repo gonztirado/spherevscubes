@@ -19,7 +19,7 @@ public class PlayerMoveController : MonoBehaviour
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit floorHit;
 
-        if (Physics.Raycast(camRay, out floorHit, mouseRayLength, mouseHitMask))
+        if (Physics.Raycast(camRay, out floorHit, mouseRayLength, mouseHitMask) && Time.timeScale > 0f)
         {
             // Create a vector from the player to the point on the floor the raycast from the mouse hit.
             // Ensure the vector is entirely along the floor plane.
