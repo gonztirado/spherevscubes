@@ -1395,7 +1395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1069434986
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2912,6 +2912,9 @@ MonoBehaviour:
   showMenuKey: 27
   menuCanvas: {fileID: 1069434985}
   hudCanvas: {fileID: 1734697391}
+  continueButton: {fileID: 627940434}
+  startGameButton: {fileID: 1094651946}
+  quitButton: {fileID: 1464213844}
 --- !u!4 &1709089910
 Transform:
   m_ObjectHideFlags: 0

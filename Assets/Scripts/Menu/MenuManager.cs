@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class MenuManager : MonoBehaviour
     public KeyCode showMenuKey = KeyCode.Escape;
     public GameObject menuCanvas;
     public GameObject hudCanvas;
+    public Button continueButton;
+    public Button startGameButton;
+    public Button quitButton;
 
 
     private bool _isMenuShown;
@@ -25,11 +30,21 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         ShowMenu(true);
+        AddButtonsListeners();
     }
+
 
     void Update()
     {
         CheckToogleShowMenu();
+    }
+
+    private void AddButtonsListeners()
+    {
+        if (continueButton != null)
+            continueButton.onClick.AddListener(delegate { ShowMenu(false); });
+        if (quitButton != null)
+            quitButton.onClick.AddListener(QuitGame);
     }
 
     private void CheckToogleShowMenu()
@@ -44,5 +59,11 @@ public class MenuManager : MonoBehaviour
         menuCanvas.SetActive(_isMenuShown);
         hudCanvas.SetActive(!_isMenuShown);
         Time.timeScale = _isMenuShown ? 0f : 1f;
+    }
+
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }
