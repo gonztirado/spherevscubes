@@ -54,7 +54,15 @@ public class GameController : MonoBehaviour
         {
             _levelTimeRemaining -= Time.deltaTime;
             UpdateTimeBarInHud();
+            if (_levelTimeRemaining < 0)
+                WinGame();
         }
+    }
+
+    private void WinGame()
+    {
+        _isGameStarted = false;
+        UpdateGameStatusText("YOU WIN!", timeToHide:2, callbackAction:delegate { MenuManager.instance.ShowMenu(true); });
     }
 
 
@@ -115,6 +123,7 @@ public class GameController : MonoBehaviour
     
     private void UpdateGameStatusText(string text, float timeToHide = -1, Action callbackAction = null)
     {
+        StartCoroutine(FadeTextUtils.FadeTextToFullAlpha(0.2f, gameStatusText));
         gameStatusText.text = text;
         gameStatusText.gameObject.SetActive(true);
         if (timeToHide > 0) {
