@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class GameController : MonoBehaviour
     public Image timeBar;
     public Text levelName;
     public Text killsCounterText;
+    public Text gameStatusText;
 
     [Header("Game elements")] public GameObject player;
     public GameObject enemies;
@@ -73,6 +75,7 @@ public class GameController : MonoBehaviour
         ResetHubElements();
         ResetPlayerProperties();
         DeleteStageElements();
+        UpdateGameStatusText("GO!", 2);
     }
 
     private void ResetHubElements()
@@ -109,4 +112,23 @@ public class GameController : MonoBehaviour
     {
         killsCounterText.text = _killsCounter.ToString();
     }
+    
+    private void UpdateGameStatusText(string text, float timeToHide = -1, Action callbackAction = null)
+    {
+        gameStatusText.text = text;
+        gameStatusText.gameObject.SetActive(true);
+        if (timeToHide > 0) {
+            StartCoroutine(HideUpdateGameStatusText(timeToHide, callbackAction));
+            StartCoroutine(FadeTextUtils.FadeTextToZeroAlpha(timeToHide, gameStatusText));
+        }
+    }
+    
+    IEnumerator HideUpdateGameStatusText(float timeToHide, Action callbackAction = null)
+    {
+        yield return new WaitForSeconds(timeToHide);
+        gameStatusText.gameObject.SetActive(false);
+        if(callbackAction != null)
+            callbackAction.Invoke();
+    }
+    
 }
