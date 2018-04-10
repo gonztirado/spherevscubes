@@ -159,18 +159,7 @@ MonoBehaviour:
   uIBar: {fileID: 0}
   onDie:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114394954813446104}
-        m_MethodName: DestroyObj
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1200983605436228}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114525900341234686
@@ -184,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c749d3954cdf0f1468c0b076e19f23c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnProbability: 0.2
   stepTime: 1
   moveSpeed: 0.5
   moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,

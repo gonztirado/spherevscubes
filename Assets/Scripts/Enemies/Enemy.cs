@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     private static float STEP_ANGLE = 45f;
 
+    [Header("Spawn Probability")] public float spawnProbability;
+    
     [Header("Move")] public float stepTime;
     public float moveSpeed;
     public Transform moveDirection;
