@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void MoveToMoveDirection()
+    public virtual void MoveToMoveDirection()
     {
         if (moveDirection != null)
         {
