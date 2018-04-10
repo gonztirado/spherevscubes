@@ -113,6 +113,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &42246773
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 7.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269885936671532, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114141793361007426, guid: 13ab5317843c7f6458a3e9ceafc8810e,
+        type: 2}
+      propertyPath: moveDirection
+      value: 
+      objectReference: {fileID: 1163865699}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &88743063
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,7 +3585,7 @@ MonoBehaviour:
   minDistance: 20
   maxDistance: 40
   playerPosition: {fileID: 1163865699}
-  simpleEnemy: {fileID: 114525900341234686, guid: 13ab5317843c7f6458a3e9ceafc8810e,
+  simpleEnemy: {fileID: 114141793361007426, guid: 13ab5317843c7f6458a3e9ceafc8810e,
     type: 2}
 --- !u!1 &1879542714
 GameObject:
