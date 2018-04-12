@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
         if (playerCollisions.Length > 0)
         {
             playerCollisions[0].GetComponentInParent<Health>().TakeDamage(damage);
+            GetComponent<Health>().Die();
         }
     }
 
@@ -70,10 +71,16 @@ public class Enemy : MonoBehaviour
 
     protected bool CheckCanMove()
     {
-        Collider[] playerCollisions =
+        Collider[] playerCollision =
+            Physics.OverlapSphere(GetOtherEnemiesDetectorCenter(), checkOtherEnemiesInFrontRadius, layerPlayer);
+        if (playerCollision.Length > 0)
+            return true;
+
+        Collider[] otherEnemiesCollision =
             Physics.OverlapSphere(GetOtherEnemiesDetectorCenter(), checkOtherEnemiesInFrontRadius, layerEnemies);
-        if (playerCollisions.Length > 0)
+        if (otherEnemiesCollision.Length > 0)
             return false;
+
         return true;
     }
 
