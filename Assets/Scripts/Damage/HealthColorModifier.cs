@@ -6,7 +6,7 @@ using System.Linq;
 
 public class HealthColorModifier : MonoBehaviour
 {
-    private float InitTransparency = 0;
+    private float _initTransparency = 0;
 
 
     void Update()
@@ -20,13 +20,20 @@ public class HealthColorModifier : MonoBehaviour
         GetComponentInChildren<Renderer>().material.SetColor("_Color",
             new Color(currentColor.r, currentColor.g, currentColor.b, transparency));
     }
+    
+    public void ResetInitTransparency()
+    {
+        _initTransparency = 0;
+    }
 
     private void InitColorTransparency()
     {
-        if (InitTransparency < 1)
+        if (_initTransparency < 1)
         {
-            InitTransparency += Time.deltaTime;
-            ChangeColorTransparency(InitTransparency);
+            _initTransparency += Time.deltaTime;
+            ChangeColorTransparency(_initTransparency);
         }
     }
+    
+    
 }

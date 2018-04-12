@@ -40,6 +40,20 @@ public class MenuManager : MonoBehaviour
         CheckToogleShowMenu();
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ShowMenu(bool showMenu)
+    {
+        _isMenuShown = showMenu;
+        ShowOrHideButtons();
+        menuCanvas.SetActive(_isMenuShown);
+        hudCanvas.SetActive(!_isMenuShown);
+        Time.timeScale = _isMenuShown ? 0f : 1f;
+    }
+
     private void AddButtonsListeners()
     {
         if (continueButton != null)
@@ -52,16 +66,10 @@ public class MenuManager : MonoBehaviour
 
     private void StartOrResetGame()
     {
-        bool wasGameStarted = GameController.instance.IsGameStarted;
         GameController.instance.ResetGame();
         ShowMenu(false);
-
-        if (!wasGameStarted)
-        {
-            startGameButton.GetComponentInChildren<Text>().text = "RESTART GAME";
-            continueButton.gameObject.SetActive(true);
-        }
     }
+
 
     private void CheckToogleShowMenu()
     {
@@ -69,17 +77,18 @@ public class MenuManager : MonoBehaviour
             ShowMenu(!_isMenuShown);
     }
 
-    public void ShowMenu(bool showMenu)
-    {
-        _isMenuShown = showMenu;
-        menuCanvas.SetActive(_isMenuShown);
-        hudCanvas.SetActive(!_isMenuShown);
-        Time.timeScale = _isMenuShown ? 0f : 1f;
-    }
 
-
-    private void QuitGame()
+    private void ShowOrHideButtons()
     {
-        Application.Quit();
+        if (GameController.instance.IsGameStarted)
+        {
+            startGameButton.GetComponentInChildren<Text>().text = "RESTART GAME";
+            continueButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            startGameButton.GetComponentInChildren<Text>().text = "START GAME";
+            continueButton.gameObject.SetActive(false);
+        }
     }
 }

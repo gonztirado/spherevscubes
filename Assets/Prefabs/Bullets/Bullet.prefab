@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   lifeTime: 15
-  damage: 1
+  damage: 2
   layermask:
     serializedVersion: 2
     m_Bits: 512

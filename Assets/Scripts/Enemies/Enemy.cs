@@ -6,9 +6,15 @@ public class Enemy : MonoBehaviour
 {
     private static float STEP_ANGLE = 45f;
 
+    [Header("Spawn Probability")] public float spawnProbability;
+
     [Header("Move")] public float stepTime;
     public float moveSpeed;
     public Transform moveDirection;
+
+    [Header("Other enemies detector")] public float checkOtherEnemiesInFrontRadius = 5;
+    public float checkOtherEnemiesInFrontOffset = 5;
+    public LayerMask layerEnemies;
 
     [Header("Player Damage")] public LayerMask layerPlayer;
     public float damageRadius;
@@ -30,15 +36,18 @@ public class Enemy : MonoBehaviour
         if (playerCollisions.Length > 0)
         {
             playerCollisions[0].GetComponentInParent<Health>().TakeDamage(damage);
-            Destroy(gameObject);
+            GetComponent<Health>().Die();
         }
     }
 
-    public void Move()
+    public virtual void Move()
     {
-        MoveToMoveDirection();
-        RotateCube();
-        CheckRotationDirection();
+        if (CheckCanMove())
+        {
+            MoveToMoveDirection();
+            RotateCube();
+            CheckRotationDirection();
+        }
     }
 
     public void SetMoveDirection(Transform moveDirection)
@@ -50,7 +59,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void MoveToMoveDirection()
+    public virtual void MoveToMoveDirection()
     {
         if (moveDirection != null)
         {
@@ -60,6 +69,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected bool CheckCanMove()
+    {
+        Collider[] playerCollision =
+            Physics.OverlapSphere(GetOtherEnemiesDetectorCenter(), checkOtherEnemiesInFrontRadius, layerPlayer);
+        if (playerCollision.Length > 0)
+            return true;
+
+        Collider[] otherEnemiesCollision =
+            Physics.OverlapSphere(GetOtherEnemiesDetectorCenter(), checkOtherEnemiesInFrontRadius, layerEnemies);
+        if (otherEnemiesCollision.Length > 0)
+            return false;
+
+        return true;
+    }
+
+    private Vector3 GetOtherEnemiesDetectorCenter()
+    {
+        return transform.position + transform.forward * checkOtherEnemiesInFrontOffset;
+    }
 
     private void RotateCube()
     {
@@ -82,5 +110,6 @@ public class Enemy : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, damageRadius);
+        Gizmos.DrawWireSphere(GetOtherEnemiesDetectorCenter(), checkOtherEnemiesInFrontRadius);
     }
 }

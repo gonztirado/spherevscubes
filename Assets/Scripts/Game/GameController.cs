@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class GameController : MonoBehaviour
     public Image timeBar;
     public Text levelName;
     public Text killsCounterText;
+    public Text gameStatusText;
 
     [Header("Game elements")] public GameObject player;
     public GameObject enemies;
@@ -38,6 +40,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         player.GetComponent<Health>().uIBar = healthBar;
+        player.GetComponent<Health>().onDie.AddListener(LoseGame);
     }
 
 
@@ -52,6 +55,8 @@ public class GameController : MonoBehaviour
         {
             _levelTimeRemaining -= Time.deltaTime;
             UpdateTimeBarInHud();
+            if (_levelTimeRemaining < 0)
+                WinGame();
         }
     }
 
@@ -73,25 +78,42 @@ public class GameController : MonoBehaviour
         ResetHubElements();
         ResetPlayerProperties();
         DeleteStageElements();
+        EnemySpawnController.instance.ResetSpawnSettings();
+        UpdateGameStatusText("GO!", 2);
+    }
+
+    private void WinGame()
+    {
+        _isGameStarted = false;
+        UpdateGameStatusText("YOU WIN!", timeToHide: 2,
+            callbackAction: delegate { MenuManager.instance.ShowMenu(true); });
+    }
+
+    private void LoseGame()
+    {
+        _isGameStarted = false;
+        player.gameObject.SetActive(false);
+        UpdateGameStatusText("YOU LOSE!", timeToHide: 2,
+            callbackAction: delegate { MenuManager.instance.ShowMenu(true); });
     }
 
     private void ResetHubElements()
     {
         player.GetComponent<Health>().RecoverAllHealth();
-        
+
         _killsCounter = 0;
         UpdateKillsInHud();
-        
+
         _levelTimeRemaining = levelTimeInSeconds;
         UpdateTimeBarInHud();
     }
 
-    
 
     private void ResetPlayerProperties()
     {
         cameras.transform.rotation = Quaternion.identity;
         player.transform.rotation = Quaternion.identity;
+        player.gameObject.SetActive(true);
     }
 
     private void DeleteStageElements()
@@ -104,9 +126,29 @@ public class GameController : MonoBehaviour
     {
         timeBar.fillAmount = _levelTimeRemaining / levelTimeInSeconds;
     }
-    
+
     private void UpdateKillsInHud()
     {
         killsCounterText.text = _killsCounter.ToString();
+    }
+
+    private void UpdateGameStatusText(string text, float timeToHide = -1, Action callbackAction = null)
+    {
+        StartCoroutine(FadeTextUtils.FadeTextToFullAlpha(0.2f, gameStatusText));
+        gameStatusText.text = text;
+        gameStatusText.gameObject.SetActive(true);
+        if (timeToHide > 0)
+        {
+            StartCoroutine(HideUpdateGameStatusText(timeToHide, callbackAction));
+            StartCoroutine(FadeTextUtils.FadeTextToZeroAlpha(timeToHide, gameStatusText));
+        }
+    }
+
+    IEnumerator HideUpdateGameStatusText(float timeToHide, Action callbackAction = null)
+    {
+        yield return new WaitForSeconds(timeToHide);
+        gameStatusText.gameObject.SetActive(false);
+        if (callbackAction != null)
+            callbackAction.Invoke();
     }
 }
