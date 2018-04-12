@@ -3269,7 +3269,7 @@ MonoBehaviour:
   enemies: {fileID: 1860470686}
   bullets: {fileID: 551518312}
   cameras: {fileID: 618643184}
-  levelTimeInSeconds: 60
+  levelTimeInSeconds: 120
 --- !u!1 &1803624601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,7 +3538,7 @@ MonoBehaviour:
   minDistance: 20
   maxDistance: 40
   playerPosition: {fileID: 1163865699}
-  maxEnemies: 10
+  maxEnemies: 40
   numEnemiesKilledToSpawnBoss: 30
   enemyPrefabs:
   - {fileID: 114525900341234686, guid: 33bc2865d21681c47b50a5ba2f6855e9, type: 2}

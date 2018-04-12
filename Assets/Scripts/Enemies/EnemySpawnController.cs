@@ -52,7 +52,7 @@ public class EnemySpawnController : MonoBehaviour
     {
         Enemy newEnemy = GetNewEnemy(enemyPrefab, poolIndex);
 
-        if (newEnemy.spawnProbability < Random.Range(0f, 1f))
+        if (Random.Range(0f, 1f) < newEnemy.spawnProbability)
         {
             newEnemy.SetMoveDirection(playerPosition);
             newEnemy.transform.position = RandomPositionInArea();
