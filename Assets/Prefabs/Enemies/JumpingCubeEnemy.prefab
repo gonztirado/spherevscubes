@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4269885936671532}
   - component: {fileID: 114394954813446104}
   - component: {fileID: 114954168244442634}
-  - component: {fileID: 114525900341234686}
+  - component: {fileID: 114141793361007426}
   m_Layer: 9
-  m_Name: CubeEnemy
+  m_Name: JumpingCubeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200983605436228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.3}
+  m_LocalPosition: {x: 0, y: 0, z: 7.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4669388678351748}
@@ -69,8 +69,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869368896047404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 4269885936671532}
   m_RootOrder: 0
@@ -89,7 +89,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 73f36758e1de7a54985b9943c76387eb, type: 2}
+  - {fileID: 2100000, guid: 703578768cedfe242887fdbd51fc4dd7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,6 +143,35 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114141793361007426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200983605436228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366f14f28c804b40943bf081a0aaf8c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnProbability: 0.5
+  stepTime: 0.5
+  moveSpeed: 1.5
+  moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
+    type: 2}
+  checkOtherEnemiesInFrontRadius: 2
+  checkOtherEnemiesInFrontOffset: 2.5
+  layerEnemies:
+    serializedVersion: 2
+    m_Bits: 512
+  layerPlayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  damageRadius: 0.7
+  damage: 1
+  jumpProbability: 0.02
+  jumpHeight: 2
+  jumpTime: 0.5
 --- !u!114 &114394954813446104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,45 +183,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce528df5baacab94f874c7d7d0ae5159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 5
+  maxHealth: 2
+  currentHealth: 2
   uIBar: {fileID: 0}
   onDie:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114394954813446104}
-        m_MethodName: DestroyObj
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1200983605436228}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114525900341234686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200983605436228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c749d3954cdf0f1468c0b076e19f23c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepTime: 0.5
-  moveSpeed: 1
-  moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
-    type: 2}
-  layerPlayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  damageRadius: 1
-  damage: 1
 --- !u!114 &114954168244442634
 MonoBehaviour:
   m_ObjectHideFlags: 1

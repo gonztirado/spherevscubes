@@ -78,6 +78,7 @@ public class GameController : MonoBehaviour
         ResetHubElements();
         ResetPlayerProperties();
         DeleteStageElements();
+        EnemySpawnController.instance.ResetSpawnSettings();
         UpdateGameStatusText("GO!", 2);
     }
 
