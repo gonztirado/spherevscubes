@@ -178,6 +178,11 @@ MonoBehaviour:
   moveSpeed: 0.2
   moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
     type: 2}
+  checkOtherEnemiesInFrontRadius: 4
+  checkOtherEnemiesInFrontOffset: 6.5
+  layerEnemies:
+    serializedVersion: 2
+    m_Bits: 512
   layerPlayer:
     serializedVersion: 2
     m_Bits: 1024

@@ -56,6 +56,7 @@ public class EnemySpawnController : MonoBehaviour
         {
             newEnemy.SetMoveDirection(playerPosition);
             newEnemy.transform.position = RandomPositionInArea();
+            newEnemy.transform.LookAt(playerPosition.position);
             newEnemy.GetComponent<Health>().RecoverAllHealth();
             newEnemy.GetComponent<Health>().onDie.AddListener(delegate
             {
