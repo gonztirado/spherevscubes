@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnController : MonoBehaviour
 {
+    public static EnemySpawnController instance;
+    
     [Header("Spawn Settings")] public float spawnInterval;
     public float minDistance;
     public float maxDistance;
@@ -16,10 +18,19 @@ public class EnemySpawnController : MonoBehaviour
 
 
     private int _numEnemiesInGame;
+    private int _killEnemiesForBossCounter;
     private bool _isBossInGame;
 
     private List<Stack<Enemy>> enemyPools;
 
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -27,6 +38,15 @@ public class EnemySpawnController : MonoBehaviour
         InvokeRepeating("SpawnEnemies", spawnInterval, spawnInterval);
     }
 
+    public void ResetSpawnSettings()
+    {
+        InitEnemyPools();
+        _numEnemiesInGame = 0;
+        _killEnemiesForBossCounter = 0;
+        _isBossInGame = false;
+    }
+    
+    
     private void InitEnemyPools()
     {
         enemyPools = new List<Stack<Enemy>>();
@@ -46,6 +66,31 @@ public class EnemySpawnController : MonoBehaviour
                 TrySpawnEnemy(enemyPrefabs[i], poolIndex: i);
             }
         }
+        TrySpawnBoss();
+    }
+
+    private void TrySpawnBoss()
+    {
+        if (!_isBossInGame && _killEnemiesForBossCounter >= numEnemiesKilledToSpawnBoss)
+        {
+            _isBossInGame = true;
+            
+            Enemy bossEnemy = Instantiate(bossPrefab, RandomPositionInArea(), Quaternion.identity);
+            bossEnemy.transform.SetParent(transform);
+            
+            bossEnemy.SetMoveDirection(playerPosition);
+            bossEnemy.transform.LookAt(playerPosition.position);
+            bossEnemy.GetComponent<Health>().onDie.AddListener(delegate
+            {
+                GameController.instance.IncrementEnemyKills();
+                Destroy(bossEnemy.gameObject);
+                _numEnemiesInGame--;
+                _killEnemiesForBossCounter = 0;
+                _isBossInGame = false;
+            });
+            bossEnemy.GetComponent<HealthColorModifier>().ResetInitTransparency();
+            _numEnemiesInGame++;
+        }
     }
 
     private void TrySpawnEnemy(Enemy enemyPrefab, int poolIndex)
@@ -60,6 +105,7 @@ public class EnemySpawnController : MonoBehaviour
             newEnemy.GetComponent<Health>().RecoverAllHealth();
             newEnemy.GetComponent<Health>().onDie.AddListener(delegate
             {
+                _killEnemiesForBossCounter++;
                 GameController.instance.IncrementEnemyKills();
                 newEnemy.gameObject.SetActive(false);
                 enemyPools[poolIndex].Push(newEnemy);

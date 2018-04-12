@@ -3498,7 +3498,7 @@ MonoBehaviour:
   maxDistance: 40
   playerPosition: {fileID: 1163865699}
   maxEnemies: 40
-  numEnemiesKilledToSpawnBoss: 30
+  numEnemiesKilledToSpawnBoss: 5
   enemyPrefabs:
   - {fileID: 114525900341234686, guid: 33bc2865d21681c47b50a5ba2f6855e9, type: 2}
   - {fileID: 114141793361007426, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}
