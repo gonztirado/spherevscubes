@@ -24,6 +24,19 @@ public class Enemy : MonoBehaviour
     private float _rotatingAngles = 0f;
     private bool isFirstStep = true;
 
+    private float _initSpawnProbability;
+    private float _initStepTime;
+    private float _initMoveSpeed;
+    private int _initDamage;
+
+    private void Awake()
+    {
+        _initSpawnProbability = spawnProbability;
+        _initStepTime = stepTime;
+        _initMoveSpeed = moveSpeed;
+        _initDamage = damage;
+    }
+
     private void FixedUpdate()
     {
         Move();
@@ -38,6 +51,14 @@ public class Enemy : MonoBehaviour
             playerCollisions[0].GetComponentInParent<Health>().TakeDamage(damage);
             GetComponent<Health>().Die();
         }
+    }
+
+    public void SetDifficulty(float difficulty)
+    {
+        spawnProbability = DifficultyUtils.IncreaseExpontential(spawnProbability, _initSpawnProbability, difficulty);
+        stepTime = DifficultyUtils.DecreaseExpontential(stepTime, _initStepTime, difficulty);
+        moveSpeed = DifficultyUtils.IncreaseExpontential(moveSpeed, _initMoveSpeed, difficulty);
+        damage = DifficultyUtils.IncreaseExpontential(damage, _initDamage, difficulty);
     }
 
     public virtual void Move()

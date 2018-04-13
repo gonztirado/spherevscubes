@@ -66,7 +66,7 @@ public class MenuManager : MonoBehaviour
 
     private void StartOrResetGame()
     {
-        GameController.instance.ResetGame();
+        GameController.instance.StartNewGame();
         ShowMenu(false);
     }
 
