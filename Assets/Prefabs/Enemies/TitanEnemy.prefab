@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnProbability: -1
-  stepTime: 3
-  moveSpeed: 0.2
+  stepTime: 2
+  moveSpeed: 0.4
   moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
     type: 2}
   checkOtherEnemiesInFrontRadius: 4

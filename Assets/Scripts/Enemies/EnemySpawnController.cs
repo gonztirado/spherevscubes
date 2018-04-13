@@ -110,6 +110,7 @@ public class EnemySpawnController : MonoBehaviour
         {
             _bossInGame = Instantiate(bossPrefab, RandomPositionInArea(), Quaternion.identity);
             _bossInGame.transform.SetParent(transform);
+            _bossInGame.SetDifficulty(_currentDifficulty);
 
             _bossInGame.SetMoveDirection(playerPosition);
             _bossInGame.transform.LookAt(playerPosition.position);
@@ -142,7 +143,8 @@ public class EnemySpawnController : MonoBehaviour
                 GameController.instance.IncrementEnemyKills();
                 newEnemy.gameObject.SetActive(false);
                 _enemyPools[poolIndex].Push(newEnemy);
-                _numEnemiesInGame--;
+                if(_numEnemiesInGame > 0)
+                    _numEnemiesInGame--;
             });
             newEnemy.GetComponent<HealthColorModifier>().ResetInitTransparency();
             _numEnemiesInGame++;

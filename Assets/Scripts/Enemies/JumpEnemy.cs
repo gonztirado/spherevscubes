@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.WSA;
 
 public class JumpEnemy : Enemy
 {
@@ -26,6 +27,7 @@ public class JumpEnemy : Enemy
         _isJumpingUp = false;
         _isJumpingDown = false;
     }
+    
 
     public override void Move()
     {
@@ -35,6 +37,9 @@ public class JumpEnemy : Enemy
             JumpDown();
         else
             ChooseJumpOrMove();
+        
+        if(transform.position.y < 0)
+           transform.position = new Vector3(transform.position.x, 0, transform.position.z); 
     }
 
 
