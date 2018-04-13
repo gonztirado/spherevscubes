@@ -37,6 +37,13 @@ public class Enemy : MonoBehaviour
         _initDamage = damage;
     }
 
+    protected void OnEnable()
+    {
+        _rotationDirection = 1;
+        _rotatingAngles = 0f;
+        isFirstStep = true;
+    }
+
     private void FixedUpdate()
     {
         Move();

@@ -19,6 +19,14 @@ public class ZigZagEnemy : Enemy
 
     private ZigZagMoveDirection _zigZagMoveDirection = ZigZagMoveDirection.ToPlayer;
     private float _currentZigZagTime;
+    
+    protected void OnEnable()
+    {
+        base.OnEnable();
+        changeDirectionTime = 0;
+        _zigZagMoveDirection = ZigZagMoveDirection.ToPlayer;
+        _currentZigZagTime = 0;
+    }
 
     public override void MoveToMoveDirection()
     {

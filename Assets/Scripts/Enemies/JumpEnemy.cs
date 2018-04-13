@@ -13,6 +13,19 @@ public class JumpEnemy : Enemy
     private bool _isJumpingUp;
     private bool _isJumpingDown;
 
+    private void OnEnable()
+    {
+        Debug.Log("enable jump enemy");
+    }
+
+
+    protected void OnDisable()
+    {
+        base.OnEnable();
+        _currentJumpHeight = 0;
+        _isJumpingUp = false;
+        _isJumpingDown = false;
+    }
 
     public override void Move()
     {
