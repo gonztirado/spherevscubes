@@ -9,7 +9,15 @@ public class CameraController : MonoBehaviour
     public Camera firstPersonCamera;
     public Camera thirdPersonCamera;
 
-    private bool _isInThirdPersonView;
+    private bool _isInThirdPersonView = true;
+
+    void Start()
+    {
+        if(_isInThirdPersonView)
+            ShowThirdPersonView();
+        else
+            ShowFirstPersonView();
+    }
 
     void Update()
     {
