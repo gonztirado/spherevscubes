@@ -2,32 +2,38 @@
 
 public class CameraController : MonoBehaviour
 {
-    [Header("Move")] public string horizontalAxis;
-    public string verticalAxis;
+    [Header("Move Settings")] public string moveCameraAxis = "Horizontal";
     public float moveSpeed;
-
+    
+    [Header("Cameras")]
+    public string changeCameraAxis = "Vertical";
+    private bool isInThirdPersonView = true;
     public Camera firstPersonCamera;
     public Camera thirdPersonCamera;
+    
 
-    private bool _isInThirdPersonView = true;
-
-    void Start()
+    private void Start()
     {
-        if(_isInThirdPersonView)
+        if(isInThirdPersonView)
             ShowThirdPersonView();
         else
             ShowFirstPersonView();
     }
 
-    void Update()
+    private void Update()
     {
         CheckCameraRotation();
         CheckCameraChange();
     }
 
-    private void CheckCameraRotation()
+    protected virtual void CheckCameraRotation()
     {
-        float horizontalMove = Input.GetAxisRaw(horizontalAxis);
+        float horizontalMove = Input.GetAxisRaw(moveCameraAxis);
+        RotateCamera(horizontalMove);
+    }
+
+    protected void RotateCamera(float horizontalMove)
+    {
         if (horizontalMove != 0 && Time.timeScale > 0f)
         {
             transform.Rotate(Vector3.up * horizontalMove * moveSpeed * Time.deltaTime);
@@ -36,26 +42,26 @@ public class CameraController : MonoBehaviour
 
     private void CheckCameraChange()
     {
-        float verticalMove = Input.GetAxisRaw(verticalAxis);
+        float verticalMove = Input.GetAxisRaw(changeCameraAxis);
 
-        if (verticalMove > 0 && _isInThirdPersonView && Time.timeScale > 0f)
+        if (verticalMove > 0 && isInThirdPersonView && Time.timeScale > 0f)
             ShowFirstPersonView();
-        else if (verticalMove < 0 && !_isInThirdPersonView && Time.timeScale > 0f)
+        else if (verticalMove < 0 && !isInThirdPersonView && Time.timeScale > 0f)
             ShowThirdPersonView();
     }
 
 
-    public void ShowFirstPersonView()
+    private void ShowFirstPersonView()
     {
         firstPersonCamera.enabled = true;
         thirdPersonCamera.enabled = false;
-        _isInThirdPersonView = false;
+        isInThirdPersonView = false;
     }
 
-    public void ShowThirdPersonView()
+    private void ShowThirdPersonView()
     {
         thirdPersonCamera.enabled = true;
         firstPersonCamera.enabled = false;
-        _isInThirdPersonView = true;
+        isInThirdPersonView = true;
     }
 }

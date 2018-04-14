@@ -858,6 +858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 618643186}
   - component: {fileID: 618643185}
+  - component: {fileID: 618643187}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -871,14 +872,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 618643184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de566aba030e1044a4cdf3eadc7980b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalAxis: Horizontal
-  verticalAxis: Vertical
+  moveCameraAxis: Horizontal
   moveSpeed: 50
+  changeCameraAxis: Vertical
   firstPersonCamera: {fileID: 1933685616}
   thirdPersonCamera: {fileID: 1033630734}
 --- !u!4 &618643186
@@ -898,6 +899,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &618643187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 618643184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 590e3aef1552a994981cfee69a39386b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveCameraAxis: Horizontal
+  moveSpeed: 50
+  changeCameraAxis: Vertical
+  firstPersonCamera: {fileID: 1933685616}
+  thirdPersonCamera: {fileID: 1033630734}
+  enableIA: 1
+  checkChangeCameraMinInterval: 0.5
+  checkChangeCameraMaxInterval: 2
 --- !u!1 &627940432
 GameObject:
   m_ObjectHideFlags: 0
