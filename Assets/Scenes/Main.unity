@@ -573,7 +573,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 100}
+  m_SizeDelta: {x: 1200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &350615082
 MonoBehaviour:
@@ -875,7 +875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &627940433
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2710,7 +2710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 9999
+  m_Text: 0
 --- !u!222 &1644431346
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3229,6 +3229,7 @@ MonoBehaviour:
   bullets: {fileID: 551518312}
   cameras: {fileID: 618643184}
   levelTimeInSeconds: 120
+  levelExponentialFactor: 1.2
 --- !u!1 &1803624601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3498,7 +3499,7 @@ MonoBehaviour:
   maxDistance: 40
   playerPosition: {fileID: 1163865699}
   maxEnemies: 40
-  numEnemiesKilledToSpawnBoss: 5
+  numEnemiesKilledToSpawnBoss: 30
   enemyPrefabs:
   - {fileID: 114525900341234686, guid: 33bc2865d21681c47b50a5ba2f6855e9, type: 2}
   - {fileID: 114141793361007426, guid: 13ab5317843c7f6458a3e9ceafc8810e, type: 2}

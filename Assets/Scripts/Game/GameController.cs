@@ -22,10 +22,12 @@ public class GameController : MonoBehaviour
     public GameObject cameras;
 
     [Header("Game settings")] public float levelTimeInSeconds;
+    public float levelExponentialFactor;
 
     private bool _isGameStarted;
     private int _killsCounter;
     private float _levelTimeRemaining;
+    private int _currentLevel = 1;
 
     void Awake()
     {
@@ -56,7 +58,7 @@ public class GameController : MonoBehaviour
             _levelTimeRemaining -= Time.deltaTime;
             UpdateTimeBarInHud();
             if (_levelTimeRemaining < 0)
-                WinGame();
+                WinLevel();
         }
     }
 
@@ -72,25 +74,43 @@ public class GameController : MonoBehaviour
         UpdateKillsInHud();
     }
 
-    public void ResetGame()
+    public void StartNewGame()
     {
-        _isGameStarted = true;
+        _currentLevel = 1;
+        player.GetComponent<Health>().RecoverAllHealth();
+        _killsCounter = 0;
+        UpdateKillsInHud();
+        
+        EnemySpawnController.instance.ResetDifficulty();
+        ResetGame();
+    }
+
+    private void LoadNewLevel()
+    {
+        _currentLevel++;
+        ResetGame();
+        EnemySpawnController.instance.IncresaseDifficulty(levelExponentialFactor);
+    }
+
+    private void ResetGame()
+    {
         ResetHubElements();
         ResetPlayerProperties();
         DeleteStageElements();
         EnemySpawnController.instance.ResetSpawnSettings();
-        UpdateGameStatusText("GO!", 2);
+        UpdateGameStatusText("LEVEL " + _currentLevel + " GO!", 2);
+        _isGameStarted = true;
     }
 
-    private void WinGame()
+    private void WinLevel()
     {
         _isGameStarted = false;
-        UpdateGameStatusText("YOU WIN!", timeToHide: 2,
-            callbackAction: delegate { MenuManager.instance.ShowMenu(true); });
+        UpdateGameStatusText("LEVEL " + _currentLevel + " FINISHED!", timeToHide: 2, callbackAction: LoadNewLevel);
     }
 
     private void LoseGame()
     {
+        _currentLevel = 1;
         _isGameStarted = false;
         player.gameObject.SetActive(false);
         UpdateGameStatusText("YOU LOSE!", timeToHide: 2,
@@ -99,12 +119,8 @@ public class GameController : MonoBehaviour
 
     private void ResetHubElements()
     {
-        player.GetComponent<Health>().RecoverAllHealth();
-
-        _killsCounter = 0;
-        UpdateKillsInHud();
-
         _levelTimeRemaining = levelTimeInSeconds;
+        levelName.text = "LEVEL " + _currentLevel;
         UpdateTimeBarInHud();
     }
 

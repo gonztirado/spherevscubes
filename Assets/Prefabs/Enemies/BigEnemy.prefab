@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnProbability: 0.2
-  stepTime: 1
+  stepTime: 0.9
   moveSpeed: 0.5
   moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
     type: 2}
