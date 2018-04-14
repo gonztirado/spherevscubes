@@ -23,7 +23,6 @@ public class ZigZagEnemy : Enemy
     protected void OnEnable()
     {
         base.OnEnable();
-        changeDirectionTime = 0;
         _zigZagMoveDirection = ZigZagMoveDirection.ToPlayer;
         _currentZigZagTime = 0;
     }

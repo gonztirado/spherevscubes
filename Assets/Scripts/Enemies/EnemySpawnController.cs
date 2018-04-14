@@ -136,22 +136,13 @@ public class EnemySpawnController : MonoBehaviour
             newEnemy.SetMoveDirection(playerPosition);
             newEnemy.transform.position = RandomPositionInArea();
             newEnemy.transform.LookAt(playerPosition.position);
-            newEnemy.GetComponent<Health>().RecoverAllHealth();
-            newEnemy.GetComponent<Health>().onDie.AddListener(delegate
-            {
-                _killEnemiesForBossCounter++;
-                GameController.instance.IncrementEnemyKills();
-                newEnemy.gameObject.SetActive(false);
-                _enemyPools[poolIndex].Push(newEnemy);
-                if(_numEnemiesInGame > 0)
-                    _numEnemiesInGame--;
-            });
             newEnemy.GetComponent<HealthColorModifier>().ResetInitTransparency();
             _numEnemiesInGame++;
             newEnemy.gameObject.SetActive(true);
         }
         else
         {
+            newEnemy.GetComponent<HealthColorModifier>().ChangeColorTransparency(0);
             newEnemy.gameObject.SetActive(false);
             _enemyPools[poolIndex].Push(newEnemy);
         }
@@ -159,9 +150,29 @@ public class EnemySpawnController : MonoBehaviour
 
     private Enemy GetNewEnemy(Enemy enemyPrefab, int poolIndex)
     {
+        Enemy newEnemy;
+
         if (_enemyPools != null && _enemyPools[poolIndex].Count > 0)
-            return _enemyPools[poolIndex].Pop();
-        return CreateNewEnemy(enemyPrefab);
+        {
+            newEnemy = _enemyPools[poolIndex].Pop();
+        }
+        else
+        {
+            newEnemy = CreateNewEnemy(enemyPrefab);
+            newEnemy.GetComponent<Health>().onDie.AddListener(delegate
+            {
+                newEnemy.gameObject.SetActive(false);
+                GameController.instance.IncrementEnemyKills();
+                
+                _killEnemiesForBossCounter++;
+                _enemyPools[poolIndex].Push(newEnemy);
+                if(_numEnemiesInGame > 0)
+                    _numEnemiesInGame--;
+                newEnemy.GetComponent<Health>().RecoverAllHealth();
+            });
+        }
+
+        return newEnemy;
     }
 
     private Enemy CreateNewEnemy(Enemy enemyPrefab)
