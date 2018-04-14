@@ -50,7 +50,7 @@ public class MenuManager : MonoBehaviour
         _isMenuShown = showMenu;
         ShowOrHideButtons();
         menuCanvas.SetActive(_isMenuShown);
-        hudCanvas.SetActive(!_isMenuShown);
+//        hudCanvas.SetActive(!_isMenuShown);
         Time.timeScale = _isMenuShown ? 0f : 1f;
     }
 
@@ -66,7 +66,7 @@ public class MenuManager : MonoBehaviour
 
     private void StartOrResetGame()
     {
-        GameController.instance.ResetGame();
+        GameController.instance.StartNewGame();
         ShowMenu(false);
     }
 

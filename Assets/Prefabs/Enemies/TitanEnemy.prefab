@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce528df5baacab94f874c7d7d0ae5159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
-  currentHealth: 200
+  maxHealth: 100
+  currentHealth: 100
   uIBar: {fileID: 0}
   onDie:
     m_PersistentCalls:
@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnProbability: -1
-  stepTime: 3
-  moveSpeed: 0.2
+  stepTime: 2
+  moveSpeed: 0.4
   moveDirection: {fileID: 4712067739690924, guid: 59b97e9ce0035b04b9e5ae051706389c,
     type: 2}
   checkOtherEnemiesInFrontRadius: 4

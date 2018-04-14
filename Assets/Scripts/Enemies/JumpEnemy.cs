@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.WSA;
 
 public class JumpEnemy : Enemy
 {
@@ -13,6 +14,20 @@ public class JumpEnemy : Enemy
     private bool _isJumpingUp;
     private bool _isJumpingDown;
 
+    private void OnEnable()
+    {
+        Debug.Log("enable jump enemy");
+    }
+
+
+    protected void OnDisable()
+    {
+        base.OnEnable();
+        _currentJumpHeight = 0;
+        _isJumpingUp = false;
+        _isJumpingDown = false;
+    }
+    
 
     public override void Move()
     {
@@ -22,6 +37,9 @@ public class JumpEnemy : Enemy
             JumpDown();
         else
             ChooseJumpOrMove();
+        
+        if(transform.position.y < 0)
+           transform.position = new Vector3(transform.position.x, 0, transform.position.z); 
     }
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawnController : MonoBehaviour
 {
     public static EnemySpawnController instance;
-    
+
     [Header("Spawn Settings")] public float spawnInterval;
     public float minDistance;
     public float maxDistance;
@@ -19,9 +19,15 @@ public class EnemySpawnController : MonoBehaviour
 
     private int _numEnemiesInGame;
     private int _killEnemiesForBossCounter;
-    private bool _isBossInGame;
+    private Enemy _bossInGame;
 
-    private List<Stack<Enemy>> enemyPools;
+    private float _difficulty;
+
+    private List<Stack<Enemy>> _enemyPools;
+
+    private int _initMaxEnemies;
+    private int _initNumEnemiesKilledToSpawnBoss;
+    private float _currentDifficulty;
 
     void Awake()
     {
@@ -34,8 +40,9 @@ public class EnemySpawnController : MonoBehaviour
 
     void Start()
     {
+        SaveInitDifficulty();
         InitEnemyPools();
-        InvokeRepeating("SpawnEnemies", spawnInterval, spawnInterval);
+        InvokeRepeating("SpawnEnemies", 2, spawnInterval);
     }
 
     public void ResetSpawnSettings()
@@ -43,17 +50,44 @@ public class EnemySpawnController : MonoBehaviour
         InitEnemyPools();
         _numEnemiesInGame = 0;
         _killEnemiesForBossCounter = 0;
-        _isBossInGame = false;
+        if (_bossInGame != null)
+        {
+            Destroy(_bossInGame.gameObject);
+            _bossInGame = null;
+        }
     }
-    
-    
+
+    public void ResetDifficulty()
+    {
+        _currentDifficulty = 1;
+        maxEnemies = _initMaxEnemies;
+        numEnemiesKilledToSpawnBoss = _initNumEnemiesKilledToSpawnBoss;
+    }
+
+    public void IncresaseDifficulty(float difficulty)
+    {
+        _currentDifficulty = Mathf.Pow(_currentDifficulty, difficulty);
+        if (_currentDifficulty <= 1)
+            _currentDifficulty = 1.1f;
+        maxEnemies = DifficultyUtils.IncreaseExpontential(maxEnemies, _initMaxEnemies, _currentDifficulty);
+        numEnemiesKilledToSpawnBoss = DifficultyUtils.DecreaseExpontential(numEnemiesKilledToSpawnBoss,
+            _initNumEnemiesKilledToSpawnBoss, _currentDifficulty);
+    }
+
+    private void SaveInitDifficulty()
+    {
+        _initMaxEnemies = maxEnemies;
+        _initNumEnemiesKilledToSpawnBoss = numEnemiesKilledToSpawnBoss;
+    }
+
+
     private void InitEnemyPools()
     {
-        enemyPools = new List<Stack<Enemy>>();
+        _enemyPools = new List<Stack<Enemy>>();
         foreach (Enemy enemyPrefab in enemyPrefabs)
         {
             Stack<Enemy> enemyPool = new Stack<Enemy>();
-            enemyPools.Add(enemyPool);
+            _enemyPools.Add(enemyPool);
         }
     }
 
@@ -66,29 +100,29 @@ public class EnemySpawnController : MonoBehaviour
                 TrySpawnEnemy(enemyPrefabs[i], poolIndex: i);
             }
         }
+
         TrySpawnBoss();
     }
 
     private void TrySpawnBoss()
     {
-        if (!_isBossInGame && _killEnemiesForBossCounter >= numEnemiesKilledToSpawnBoss)
+        if (_bossInGame == null && _killEnemiesForBossCounter >= numEnemiesKilledToSpawnBoss)
         {
-            _isBossInGame = true;
-            
-            Enemy bossEnemy = Instantiate(bossPrefab, RandomPositionInArea(), Quaternion.identity);
-            bossEnemy.transform.SetParent(transform);
-            
-            bossEnemy.SetMoveDirection(playerPosition);
-            bossEnemy.transform.LookAt(playerPosition.position);
-            bossEnemy.GetComponent<Health>().onDie.AddListener(delegate
+            _bossInGame = Instantiate(bossPrefab, RandomPositionInArea(), Quaternion.identity);
+            _bossInGame.transform.SetParent(transform);
+            _bossInGame.SetDifficulty(_currentDifficulty);
+
+            _bossInGame.SetMoveDirection(playerPosition);
+            _bossInGame.transform.LookAt(playerPosition.position);
+            _bossInGame.GetComponent<Health>().onDie.AddListener(delegate
             {
                 GameController.instance.IncrementEnemyKills();
-                Destroy(bossEnemy.gameObject);
+                Destroy(_bossInGame.gameObject);
+                _bossInGame = null;
                 _numEnemiesInGame--;
                 _killEnemiesForBossCounter = 0;
-                _isBossInGame = false;
             });
-            bossEnemy.GetComponent<HealthColorModifier>().ResetInitTransparency();
+            _bossInGame.GetComponent<HealthColorModifier>().ResetInitTransparency();
             _numEnemiesInGame++;
         }
     }
@@ -96,37 +130,49 @@ public class EnemySpawnController : MonoBehaviour
     private void TrySpawnEnemy(Enemy enemyPrefab, int poolIndex)
     {
         Enemy newEnemy = GetNewEnemy(enemyPrefab, poolIndex);
-
-        if (Random.Range(0f, 1f) < newEnemy.spawnProbability)
+        newEnemy.SetDifficulty(_currentDifficulty);
+        if (Random.Range(0f, 1f) < (newEnemy.spawnProbability))
         {
             newEnemy.SetMoveDirection(playerPosition);
             newEnemy.transform.position = RandomPositionInArea();
             newEnemy.transform.LookAt(playerPosition.position);
-            newEnemy.GetComponent<Health>().RecoverAllHealth();
-            newEnemy.GetComponent<Health>().onDie.AddListener(delegate
-            {
-                _killEnemiesForBossCounter++;
-                GameController.instance.IncrementEnemyKills();
-                newEnemy.gameObject.SetActive(false);
-                enemyPools[poolIndex].Push(newEnemy);
-                _numEnemiesInGame--;
-            });
             newEnemy.GetComponent<HealthColorModifier>().ResetInitTransparency();
             _numEnemiesInGame++;
             newEnemy.gameObject.SetActive(true);
         }
         else
         {
+            newEnemy.GetComponent<HealthColorModifier>().ChangeColorTransparency(0);
             newEnemy.gameObject.SetActive(false);
-            enemyPools[poolIndex].Push(newEnemy);
+            _enemyPools[poolIndex].Push(newEnemy);
         }
     }
 
     private Enemy GetNewEnemy(Enemy enemyPrefab, int poolIndex)
     {
-        if (enemyPools[poolIndex].Count > 0)
-            return enemyPools[poolIndex].Pop();
-        return CreateNewEnemy(enemyPrefab);
+        Enemy newEnemy;
+
+        if (_enemyPools != null && _enemyPools[poolIndex].Count > 0)
+        {
+            newEnemy = _enemyPools[poolIndex].Pop();
+        }
+        else
+        {
+            newEnemy = CreateNewEnemy(enemyPrefab);
+            newEnemy.GetComponent<Health>().onDie.AddListener(delegate
+            {
+                newEnemy.gameObject.SetActive(false);
+                GameController.instance.IncrementEnemyKills();
+                
+                _killEnemiesForBossCounter++;
+                _enemyPools[poolIndex].Push(newEnemy);
+                if(_numEnemiesInGame > 0)
+                    _numEnemiesInGame--;
+                newEnemy.GetComponent<Health>().RecoverAllHealth();
+            });
+        }
+
+        return newEnemy;
     }
 
     private Enemy CreateNewEnemy(Enemy enemyPrefab)
