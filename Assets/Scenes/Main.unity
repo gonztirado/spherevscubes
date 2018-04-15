@@ -2835,6 +2835,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114837435908459532, guid: 59b97e9ce0035b04b9e5ae051706389c,
+        type: 2}
+      propertyPath: bullets
+      value: 
+      objectReference: {fileID: 551518312}
     - target: {fileID: 114888446575759590, guid: 59b97e9ce0035b04b9e5ae051706389c,
         type: 2}
       propertyPath: frontEnemyDetector
