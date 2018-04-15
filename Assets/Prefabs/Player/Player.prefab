@@ -38,8 +38,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4712067739690924}
-  - component: {fileID: 114426822020881474}
   - component: {fileID: 114054566159656778}
+  - component: {fileID: 114426822020881474}
+  - component: {fileID: 114888446575759590}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -258,7 +259,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634057966399958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eed0e76ca033704e98c2df1ece66d6b, type: 3}
   m_Name: 
@@ -267,6 +268,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   mouseRayLength: 1000
+--- !u!114 &114888446575759590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1634057966399958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c610130c2e25849980635c1bef7623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 100
+  angleToPivot: 1
+  frontEnemyDetector: {fileID: 0}
+  chooseNewTargetElapseTime: 0.5
 --- !u!135 &135296177747489392
 SphereCollider:
   m_ObjectHideFlags: 1
