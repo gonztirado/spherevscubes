@@ -279,8 +279,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c610130c2e25849980635c1bef7623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseHitMask:
+    serializedVersion: 2
+    m_Bits: 256
+  mouseRayLength: 1000
   moveSpeed: 100
   angleToPivot: 1
+  enableIA: 1
   frontEnemyDetector: {fileID: 0}
   chooseNewTargetElapseTime: 0.5
 --- !u!135 &135296177747489392

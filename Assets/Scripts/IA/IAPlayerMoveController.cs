@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IAPlayerMoveController : MonoBehaviour
+public class IAPlayerMoveController : PlayerMoveController
 {
     [Header("Move Settings")] public float moveSpeed = 5;
     public float angleToPivot = 15f;
 
-    [Header("IA Settings")] public IAEnemyDetector frontEnemyDetector;
+    [Header("IA Settings")] public bool enableIA; 
+    public IAEnemyDetector frontEnemyDetector;
     public float chooseNewTargetElapseTime = 0.5f;
 
     private Enemy _targetEnemy;
@@ -17,8 +18,15 @@ public class IAPlayerMoveController : MonoBehaviour
         StartCoroutine(ChooseBestEnemyForTarget());
     }
 
+    protected override void TurnPosition()
+    {
+        if (enableIA)
+            TryLookAtEnemyTarget();
+        else 
+            base.TurnPosition();
+    }
 
-    private void FixedUpdate()
+    private void TryLookAtEnemyTarget()
     {
         if (IsEnemyActiveWithHealth(_targetEnemy))
             LookAtEnemy(_targetEnemy);
