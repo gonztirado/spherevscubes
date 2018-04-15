@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65557563556057736}
   - component: {fileID: 23156390187384878}
   - component: {fileID: 114125392712512140}
+  - component: {fileID: 114837435908459532}
   m_Layer: 10
   m_Name: Gun
   m_TagString: Untagged
@@ -38,8 +39,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4712067739690924}
-  - component: {fileID: 114426822020881474}
   - component: {fileID: 114054566159656778}
+  - component: {fileID: 114426822020881474}
+  - component: {fileID: 114888446575759590}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -241,7 +243,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539866401153970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecb630d815a7ec64ebb7d727b0793ae3, type: 3}
   m_Name: 
@@ -258,7 +260,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634057966399958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eed0e76ca033704e98c2df1ece66d6b, type: 3}
   m_Name: 
@@ -267,6 +269,44 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   mouseRayLength: 1000
+--- !u!114 &114837435908459532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539866401153970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c217b8cbdfd44f290cdc180535386ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireSpeed: 5
+  bulletPrefab: {fileID: 1102720155572660, guid: d3259d256b636a446be061185132c795,
+    type: 2}
+  bulletStart: {fileID: 4111542798996212}
+  bullets: {fileID: 0}
+  fireAxis: Fire1
+  enableIA: 0
+--- !u!114 &114888446575759590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1634057966399958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c610130c2e25849980635c1bef7623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseHitMask:
+    serializedVersion: 2
+    m_Bits: 256
+  mouseRayLength: 1000
+  moveSpeed: 100
+  angleToPivot: 1
+  enableIA: 0
+  frontEnemyDetector: {fileID: 0}
+  chooseNewTargetElapseTime: 0.5
 --- !u!135 &135296177747489392
 SphereCollider:
   m_ObjectHideFlags: 1

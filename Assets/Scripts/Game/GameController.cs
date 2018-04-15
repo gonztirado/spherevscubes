@@ -74,13 +74,25 @@ public class GameController : MonoBehaviour
         UpdateKillsInHud();
     }
 
+    public void UpdateGameStatusText(string text, float timeToHide = -1, Action callbackAction = null)
+    {
+        StartCoroutine(FadeTextUtils.FadeTextToFullAlpha(0.2f, gameStatusText));
+        gameStatusText.text = text;
+        gameStatusText.gameObject.SetActive(true);
+        if (timeToHide > 0)
+        {
+            StartCoroutine(HideUpdateGameStatusText(timeToHide, callbackAction));
+            StartCoroutine(FadeTextUtils.FadeTextToZeroAlpha(timeToHide, gameStatusText));
+        }
+    }
+
     public void StartNewGame()
     {
         _currentLevel = 1;
         player.GetComponent<Health>().RecoverAllHealth();
         _killsCounter = 0;
         UpdateKillsInHud();
-        
+
         EnemySpawnController.instance.ResetDifficulty();
         ResetGame();
     }
@@ -148,17 +160,6 @@ public class GameController : MonoBehaviour
         killsCounterText.text = _killsCounter.ToString();
     }
 
-    private void UpdateGameStatusText(string text, float timeToHide = -1, Action callbackAction = null)
-    {
-        StartCoroutine(FadeTextUtils.FadeTextToFullAlpha(0.2f, gameStatusText));
-        gameStatusText.text = text;
-        gameStatusText.gameObject.SetActive(true);
-        if (timeToHide > 0)
-        {
-            StartCoroutine(HideUpdateGameStatusText(timeToHide, callbackAction));
-            StartCoroutine(FadeTextUtils.FadeTextToZeroAlpha(timeToHide, gameStatusText));
-        }
-    }
 
     IEnumerator HideUpdateGameStatusText(float timeToHide, Action callbackAction = null)
     {

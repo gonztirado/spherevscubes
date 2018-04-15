@@ -20,9 +20,14 @@ public class GunController : MonoBehaviour
         CheckFire();
     }
 
-    private void CheckFire()
+    protected virtual void CheckFire()
     {
         float fireAxisPressed = Input.GetAxisRaw(fireAxis);
+        TryShoot(fireAxisPressed);
+    }
+
+    protected void TryShoot(float fireAxisPressed)
+    {
         if (CanShoot() && fireAxisPressed != 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletStart.position, bulletStart.rotation);
