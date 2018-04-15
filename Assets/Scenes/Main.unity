@@ -391,6 +391,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc7c7a010cdfcb429ced2898c83db52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iaCameraController: {fileID: 618643187}
+  iaPlayerMoveController: {fileID: 849861173}
+  iaGunController: {fileID: 2051989026}
+  IaActiveAllKey: 105
+  IaCameraControllerKey: 282
+  IaPlayerMoveControllerKey: 283
+  IaGunControllerKey: 284
 --- !u!4 &197597877
 Transform:
   m_ObjectHideFlags: 0
@@ -967,7 +974,7 @@ MonoBehaviour:
   changeCameraAxis: Vertical
   firstPersonCamera: {fileID: 1933685616}
   thirdPersonCamera: {fileID: 1033630734}
-  enableIA: 1
+  enableIA: 0
   checkChangeCameraMinInterval: 0.5
   checkChangeCameraMaxInterval: 2
 --- !u!1 &627940432
@@ -1413,6 +1420,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1634057966399958, guid: 59b97e9ce0035b04b9e5ae051706389c,
     type: 2}
   m_PrefabInternal: {fileID: 1625885248}
+--- !u!114 &849861173 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114888446575759590, guid: 59b97e9ce0035b04b9e5ae051706389c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1625885248}
+  m_Script: {fileID: 11500000, guid: b7c610130c2e25849980635c1bef7623, type: 3}
 --- !u!1 &920370683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4050,6 +4063,12 @@ Transform:
   m_Father: {fileID: 618643186}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2051989026 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114837435908459532, guid: 59b97e9ce0035b04b9e5ae051706389c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1625885248}
+  m_Script: {fileID: 11500000, guid: 3c217b8cbdfd44f290cdc180535386ea, type: 3}
 --- !u!1 &2097808824
 GameObject:
   m_ObjectHideFlags: 0

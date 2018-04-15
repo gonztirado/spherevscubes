@@ -286,7 +286,7 @@ MonoBehaviour:
   bulletStart: {fileID: 4111542798996212}
   bullets: {fileID: 0}
   fireAxis: Fire1
-  enableIA: 1
+  enableIA: 0
 --- !u!114 &114888446575759590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,7 +304,7 @@ MonoBehaviour:
   mouseRayLength: 1000
   moveSpeed: 100
   angleToPivot: 1
-  enableIA: 1
+  enableIA: 0
   frontEnemyDetector: {fileID: 0}
   chooseNewTargetElapseTime: 0.5
 --- !u!135 &135296177747489392
